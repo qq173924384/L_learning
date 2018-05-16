@@ -1,0 +1,20 @@
+[27-Aug-2016 17:28:02 PRC] PHP Notice:  Undefined index: keywords in D:\www\L_learning\project\admin\control\siteControl.class.php on line 100
+[27-Aug-2016 17:28:02 PRC] PHP Notice:  Undefined index: description in D:\www\L_learning\project\admin\control\siteControl.class.php on line 101
+[27-Aug-2016 17:28:37 PRC] PHP Notice:  Undefined index: keywords in D:\www\L_learning\project\admin\control\siteControl.class.php on line 100
+[27-Aug-2016 17:28:37 PRC] PHP Notice:  Undefined index: description in D:\www\L_learning\project\admin\control\siteControl.class.php on line 101
+[27-Aug-2016 17:29:02 PRC] PHP Notice:  Undefined index: keywords in D:\www\L_learning\project\admin\control\siteControl.class.php on line 100
+[27-Aug-2016 17:29:02 PRC] PHP Notice:  Undefined index: description in D:\www\L_learning\project\admin\control\siteControl.class.php on line 101
+[27-Aug-2016 17:35:46 PRC] PHP Warning:  file_get_contents(D:\www\L_learning/project/cate/view/.php): failed to open stream: No such file or directory in D:\www\L_learning\project\admin\control\siteControl.class.php on line 105
+[27-Aug-2016 17:35:53 PRC] PHP Warning:  file_get_contents(D:\www\L_learning/project/article/view/.php): failed to open stream: No such file or directory in D:\www\L_learning\project\admin\control\siteControl.class.php on line 105
+[27-Aug-2016 17:36:13 PRC] PHP Warning:  PDO::exec(): SQLSTATE[42S22]: Column not found: 1054 Unknown column 'brief' in 'field list' in D:\www\L_learning\core\lib\Connect.class.php on line 91
+[27-Aug-2016 17:36:16 PRC] PHP Warning:  PDO::exec(): SQLSTATE[42S22]: Column not found: 1054 Unknown column 'brief' in 'field list' in D:\www\L_learning\core\lib\Connect.class.php on line 91
+[27-Aug-2016 17:39:05 PRC] PHP Warning:  PDO::exec(): SQLSTATE[42S22]: Column not found: 1054 Unknown column 'brief' in 'field list' in D:\www\L_learning\core\lib\Connect.class.php on line 91
+[05-Dec-2016 10:11:44 Asia/Shanghai] PHP Warning:  Cannot modify header information - headers already sent by (output started at D:\www\L_learning\core\core.php:8) in D:\www\L_learning\core\lib\Core.class.php on line 13
+[05-Dec-2016 10:11:59 Asia/Shanghai] PHP Warning:  Cannot modify header information - headers already sent by (output started at D:\www\L_learning\core\core.php:8) in D:\www\L_learning\core\lib\Core.class.php on line 13
+[05-Dec-2016 10:14:01 Asia/Shanghai] PHP Warning:  Cannot modify header information - headers already sent by (output started at D:\www\L_learning\core\core.php:8) in D:\www\L_learning\core\lib\Core.class.php on line 13
+[05-Dec-2016 10:14:05 Asia/Shanghai] PHP Warning:  Cannot modify header information - headers already sent by (output started at D:\www\L_learning\core\core.php:8) in D:\www\L_learning\core\lib\Core.class.php on line 13
+[05-Dec-2016 10:15:42 Asia/Shanghai] PHP Warning:  Cannot modify header information - headers already sent by (output started at D:\www\L_learning\core\core.php:8) in D:\www\L_learning\core\lib\Core.class.php on line 13
+[05-Dec-2016 10:15:43 Asia/Shanghai] PHP Warning:  Cannot modify header information - headers already sent by (output started at D:\www\L_learning\core\core.php:8) in D:\www\L_learning\core\lib\Core.class.php on line 13
+[05-Dec-2016 10:15:51 Asia/Shanghai] PHP Warning:  Cannot modify header information - headers already sent by (output started at D:\www\L_learning\core\core.php:8) in D:\www\L_learning\core\lib\Core.class.php on line 13
+[05-Dec-2016 10:15:51 Asia/Shanghai] PHP Warning:  Cannot modify header information - headers already sent by (output started at D:\www\L_learning\core\core.php:8) in D:\www\L_learning\core\lib\Core.class.php on line 13
+[05-Dec-2016 10:15:52 Asia/Shanghai] PHP Warning:  Cannot modify header information - headers already sent by (output started at D:\www\L_learning\core\core.php:8) in D:\www\L_learning\core\lib\Core.class.php on line 13

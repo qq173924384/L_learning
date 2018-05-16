@@ -1,0 +1,10 @@
+#content * {
+    max-width: 100%
+}
+
+.myControl[data-type="DBAC&DIV"] .panel .list-group li a {
+    white-space: nowrap;
+    overflow: hidden;
+    display: inline-block;
+    text-overflow: ellipsis;
+}

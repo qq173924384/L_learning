@@ -1,0 +1,82 @@
+<style type="text/css">
+    .item img{
+        max-width: 100%
+    }
+    .control_editor .item {
+        position: relative;
+    }
+    .control_editor .container {
+        min-height: 100px;
+    }
+</style>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2 no-padding sidebar">
+            <div class="panel-group" id="control_catalog">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <a data-parent="#control_catalog" data-toggle="collapse" href="#collapseOne">
+                            <h3 class="text-primary">
+                                简单静态控件
+                            </h3>
+                        </a>
+                    </div>
+                    <div class="panel-collapse collapse in" id="collapseOne">
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="item active" data-type="A&A IMG&P.carousel-caption">
+                                        <a href="javascript:void(0);" target="_blank">
+                                            <img src="img/photo-1417128281290-30a42da46277.jpg"/>
+                                            <p class="carousel-caption">
+                                                文字说明
+                                            </p>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <p class="text-primary text-center">
+                                        轮播图片
+                                    </p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-10 control_editor jumbotron">
+            <div class="container">
+                <div class="item" data-type="A&A IMG&P.carousel-caption">
+                    <a href="javascript:void(0);" target="_blank">
+                        <img src="img/photo-1417128281290-30a42da46277.jpg"/>
+                        <p class="carousel-caption">
+                            文字说明
+                        </p>
+                    </a>
+                </div>
+                <div class="item" data-type="A&A IMG&P.carousel-caption">
+                    <a href="javascript:void(0);" target="_blank">
+                        <img src="img/photo-1417128281290-30a42da46277.jpg">
+                            <p class="carousel-caption">
+                                文字说明
+                            </p>
+                        </img>
+                    </a>
+                </div>
+                <div class="item" data-type="A&A IMG&P.carousel-caption">
+                    <a href="javascript:void(0);" target="_blank">
+                        <img src="img/photo-1417128281290-30a42da46277.jpg">
+                            <p class="carousel-caption">
+                                文字说明
+                            </p>
+                        </img>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $.myControlInit('#control_catalog li', '.control_editor>div', '.item', '#controlModal', '#controlModalDel', '#controlModalSave');
+</script>

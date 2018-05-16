@@ -1,0 +1,71 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2 no-padding sidebar">
+            <div class="panel-group" id="control_catalog">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <a data-parent="#control_catalog" data-toggle="collapse" href="#collapseOne">
+                            <h3 class="text-primary">
+                                简单静态控件
+                            </h3>
+                        </a>
+                    </div>
+                    <div class="panel-collapse collapse in" id="collapseOne">
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <li class="active">
+                                        <a href="javascript:void(0);">
+                                            链接
+                                        </a>
+                                    </li>
+                                </div>
+                                <div class="row">
+                                    <p class="text-primary text-center">
+                                        链接
+                                    </p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-10 control_editor jumbotron">
+            <div class="container">
+                <li class="active">
+                    <a href="javascript:void(0);">
+                        激活链接
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);">
+                        链接
+                    </a>
+                </li>
+                <li class="dropdown">
+                    <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" data-toggle="dropdown" href="#" role="button">
+                        下拉菜单
+                        <span class="caret">
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="#">
+                                下拉链接
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                下拉链接
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $.myControlInit('#control_catalog li', '.control_editor>div', '.item', '#controlModal', '#controlModalDel', '#controlModalSave');
+</script>

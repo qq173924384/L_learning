@@ -1,0 +1,230 @@
+{
+    "title": {
+        "class-div-flow": "浮动",
+        "class-div-column": "列宽",
+        "class-div-border": "边框",
+        "class-div-align": "对齐方式",
+        "class-img-type": "图片样式",
+        "class-text-color": "文本颜色",
+        "class-bg-color": "背景颜色",
+        "class-button-color": "按钮颜色",
+        "class-button-size": "按钮大小",
+        "class-navbar": "导航对齐方式",
+        "text": "内容",
+        "html": "内容",
+        "node": "节点",
+        "target": "打开方式",
+        "href": "链接地址",
+        "src": "图片地址",
+        "id": "ID",
+        "carousel": "轮播图片",
+        "has-side": "是否有两侧按钮",
+        "has-bottom": "是否有底部按钮",
+        "data-cate": "文章分类",
+        "data-limit": "显示条数",
+        "data-target": "打开方式"
+    },
+    "select": {
+        "class-div-column": {
+            "1/12": "col-md-1",
+            "2/12": "col-md-2",
+            "3/12": "col-md-3",
+            "4/12": "col-md-4",
+            "5/12": "col-md-5",
+            "6/12": "col-md-6",
+            "7/12": "col-md-7",
+            "8/12": "col-md-8",
+            "9/12": "col-md-9",
+            "10/12": "col-md-10",
+            "11/12": "col-md-11",
+            "12/12": "col-md-12"
+        },
+        "class-div-flow": {
+            "默认": "",
+            "左浮动": "pull-left",
+            "右浮动": "pull-right"
+        },
+        "class-div-border": {
+            "默认": "",
+            "有边框": "thumbnail"
+        },
+        "class-div-align": {
+            "默认": "",
+            "左对齐": "text-left",
+            "右对齐": "text-right",
+            "居中": "text-center"
+        },
+        "class-text-color": {
+            "默认": "",
+            "暗淡": "text-muted",
+            "主色": "text-primary",
+            "成功": "text-success",
+            "信息": "text-info",
+            "警告": "text-warning",
+            "危险": "text-danger"
+        },
+        "class-bg-color": {
+            "默认": "",
+            "主色": "bg-primary",
+            "成功": "bg-success",
+            "信息": "bg-info",
+            "警告": "bg-warning",
+            "危险": "bg-danger"
+        },
+        "class-button-color": {
+            "默认": "btn-default",
+            "主色": "btn-primary",
+            "成功": "btn-success",
+            "信息": "btn-info",
+            "警告": "btn-warning",
+            "危险": "btn-danger",
+            "链接": "btn-link"
+        },
+        "class-button-size": {
+            "默认": "",
+            "大按钮": "btn-lg",
+            "小按钮": "btn-sm",
+            "超小尺寸": "btn-xs",
+            "块级按钮": "btn-block",
+            "块级大按钮": "btn-lg btn-block",
+            "块级小按钮": "btn-sm btn-block",
+            "块级超小尺寸": "btn-xs btn-block"
+        },
+        "class-img-type": {
+            "默认": "",
+            "圆形": "img-circle",
+            "圆角": "img-rounded",
+            "有边框": "img-thumbnail",
+            "圆形有边框": "img-circle img-thumbnail"
+        },
+        "class-navbar": {
+            "默认": "",
+            "左对齐": "navbar-left",
+            "右对齐": "navbar-right"
+        },
+        "target": {
+            "默认": "_self",
+            "新窗口": "_blank"
+        },
+        "has-side": {
+            "有": true,
+            "无": false
+        },
+        "has-bottom": {
+            "有": true,
+            "无": false
+        },
+        "data-target": {
+            "默认": "_self",
+            "新窗口": "_blank"
+        }
+    },
+    "db_select": {
+        "data-cate": "/Admin-site-pageAjax/kv/cate.html"
+    },
+    "panel": {
+        "carousel": "/js/myControl/control/Carousel.html",
+        "nav_ul": "/js/myControl/control/Nav_ul.html"
+    },
+    "control": {
+        "DIV": {
+            "class-div-align": "select",
+            "class-div-flow": "select",
+            "class-div-column": "select",
+            "class-div-border": "select"
+        },
+        "H1": {
+            "class-text-color": "select",
+            "class-bg-color": "select",
+            "text": "text"
+        },
+        "H2": {
+            "class-text-color": "select",
+            "class-bg-color": "select",
+            "text": "text"
+        },
+        "H3": {
+            "class-text-color": "select",
+            "class-bg-color": "select",
+            "text": "text"
+        },
+        "H4": {
+            "class-text-color": "select",
+            "class-bg-color": "select",
+            "text": "text"
+        },
+        "H5": {
+            "class-text-color": "select",
+            "class-bg-color": "select",
+            "text": "text"
+        },
+        "H6": {
+            "class-text-color": "select",
+            "class-bg-color": "select",
+            "text": "text"
+        },
+        "P": {
+            "class-text-color": "select",
+            "class-bg-color": "select",
+            "text": "textarea"
+        },
+        "IMG": {
+            "class-img-type": "select",
+            "class-default": {
+                "响应式图片": "img-responsive"
+            },
+            "src": "text"
+        },
+        "A IMG": {
+            "src": "text"
+        },
+        "A.btn": {
+            "class-button-color": "select",
+            "class-button-size": "select",
+            "class-default": {
+                "按钮": "btn"
+            },
+            "href": "text",
+            "target": "select",
+            "text": "text"
+        },
+        "A": {
+            "href": "text",
+            "target": "select"
+        },
+        "P.carousel-caption": {
+            "text": "text",
+            "class-default": {
+                "轮播图片说明": "carousel-caption"
+            }
+        },
+        "DIV.carousel": {
+            "id": "text",
+            "carousel": "panel",
+            "has-side": "select",
+            "has-bottom": "select",
+            "class-default": {
+                "轮播图片": "carousel slide"
+            }
+        },
+        "UL.nav": {
+            "class-navbar": "select",
+            "class-default": {
+                "导航条": "nav navbar-nav"
+            }
+        },
+        "DBAC": {
+            "data-cate": "db_select",
+            "data-limit": "number",
+            "data-target": "select"
+        },
+        "A.navbar-brand": {
+            "href": "text",
+            "target": "select",
+            "text": "text",
+            "class-default": {
+                "主站链接": "navbar-brand"
+            }
+        }
+    }
+}

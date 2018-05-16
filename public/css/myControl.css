@@ -1,0 +1,53 @@
+body {
+    padding-top: 50px;
+}
+
+.no-padding {
+    padding: 0;
+}
+
+.sidebar {
+    z-index: 999;
+}
+
+.editor>div {
+    background-color: rgba(0, 0, 0, 0.15);
+    min-height: 90vh;
+}
+
+.editor .myControl, .sidebar .myControl {
+    border-width: 1px;
+    border-style: dashed;
+    border-color: black;
+}
+
+.sidebar li.ui-draggable-dragging {
+    width: 100%;
+}
+
+.modal-open, .modal-open .navbar-fixed-top, .modal-open .navbar-fixed-bottom {
+    margin-right: 0;
+}
+
+.modal {
+    bottom: auto;
+    padding: 0;
+    background-color: #ffffff;
+    border: 1px solid #999999;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+    background-clip: padding-box;
+    overflow-y: auto;
+}
+
+.modal.container {
+    max-width: none;
+}
+
+#myModal, #controlModal {
+    max-width: 100%;
+    max-height: 100%;
+    display: none;
+}

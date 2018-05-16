@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <title>
+        页面编辑
+    </title>
+    <link href="/css/jquery-ui.min.css" rel="stylesheet"/>
+    <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/sweetalert.min.css" rel="stylesheet"/>
+    <link href="/css/myControl.css" rel="stylesheet" type="text/css"/>
+    <script src="/js/jquery-2.2.4.min.js">
+    </script>
+    <script src="/js/jquery-ui.min.js">
+    </script>
+    <script src="/js/bootstrap.min.js" type="text/javascript">
+    </script>
+    <script src="/js/sweetalert.min.js">
+    </script>
+    <script src="/js/myControl.js" type="text/javascript">
+    </script>
+    <script src="/js/myExtend.js">
+    </script>
+    <script>
+        $(function() {
+            $('#show').on('click', function() {
+                $('.sidebar').toggle();
+                $('#main').toggleClass('col-md-10 col-md-12 editor jumbotron');
+            })
+            $('#save').on('click', function() {
+                var data = {
+                    title:'test',
+                    html:$('#main').html()
+                };
+                $.myPost('', data);
+            })
+
+            $.myControlInit('#control_catalog li', '.control_editor>div', '.item', '#controlModal', '#controlModalDel', '#controlModalSave');
+        });
+    </script>
+</head>
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button aria-controls="navbar" aria-expanded="false" class="navbar-toggle collapsed" data-target="#navbar" data-toggle="collapse" type="button">
+                    <span class="sr-only">
+                        Toggle navigation
+                    </span>
+                    <span class="icon-bar">
+                    </span>
+                    <span class="icon-bar">
+                    </span>
+                    <span class="icon-bar">
+                    </span>
+                </button>
+                <a class="navbar-brand" href="#">
+                    Project name
+                </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+                <div class="navbar-form navbar-left">
+                    <button class="btn btn-primary" id="show">
+                        预览/编辑
+                    </button>
+                    <button class="btn btn-primary" id="save">
+                        保存
+                    </button>
+                </div>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </nav>
+    <style type="text/css">
+        .item img{
+            max-width: 100%
+        }
+        .control_editor .item {
+            position: relative;
+        }
+        .control_editor .container {
+            min-height: 100px;
+        }
+    </style>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2 no-padding sidebar">
+                <div class="panel-group" id="control_catalog">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <a data-parent="#control_catalog" data-toggle="collapse" href="#collapseOne">
+                                <h3 class="text-primary">
+                                    简单静态控件
+                                </h3>
+                            </a>
+                        </div>
+                        <div class="panel-collapse collapse in" id="collapseOne">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <div class="item" data-type="A">
+                                            <a href="javascript:void(0);">
+                                                链接
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <p class="text-primary text-center">
+                                            链接
+                                        </p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-10 control_editor jumbotron">
+                <div class="container">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal container fade" id="myModal" tabindex="-1">
+        <div class="modal-header">
+            <button aria-hidden="true" class="close" data-dismiss="modal" type="button">
+                ×
+            </button>
+            <h4 class="modal-title">
+                控件编辑
+            </h4>
+        </div>
+        <div class="modal-body">
+            <form>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-default" data-dismiss="modal" type="button">
+                关闭
+            </button>
+            <button class="btn btn-danger" id="myModalDel" type="button">
+                删除
+            </button>
+            <button class="btn btn-primary" id="myModalSave" type="button">
+                修改
+            </button>
+        </div>
+    </div>
+    <div class="modal container fade" id="controlModal" tabindex="-1">
+        <div class="modal-header">
+            <button aria-hidden="true" class="close" data-dismiss="modal" type="button">
+                ×
+            </button>
+            <h4 class="modal-title">
+                子控件编辑
+            </h4>
+        </div>
+        <div class="modal-body">
+            <form>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-default" data-dismiss="modal" type="button">
+                关闭
+            </button>
+            <button class="btn btn-danger" id="controlModalDel" type="button">
+                删除
+            </button>
+            <button class="btn btn-primary" id="controlModalSave" type="button">
+                修改
+            </button>
+        </div>
+    </div>
+</body>
+</html>
