@@ -14,6 +14,14 @@ class pageModel extends Model
     }
     protected static function trimHTML($html)
     {
-        return preg_replace(["/> *([^ ]*) *</", "/[\s]+/", "/<!--[^!]*-->/", "//", "'/\*[^*]*\*/'", "/\r/", "/\n/", "/\t/"], [">\\1<", ' ', '', '', '', '', '', ''], trim($html));
+        return preg_replace([
+            "/<!--[^!]*-->/",
+            "/>([\s]+)</",
+            "/[\s]+/",
+        ], [
+            '',
+            '><',
+            ' ',
+        ], trim($html));
     }
 }
