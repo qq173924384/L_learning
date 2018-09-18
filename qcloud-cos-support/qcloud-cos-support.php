@@ -9,7 +9,9 @@ Author URI: http://blog.wangjunfeng.com
 License: MIT
 */
 require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/sdk/Qcloud_cos/CosUtil.php';
 require_once('sdk/include.php');
+
 use Qcloud_cos\Auth;
 use Qcloud_cos\Cosapi;
 
@@ -27,6 +29,7 @@ function cos_set_options()
 {
     $options = array(
         'bucket' => "",
+        'region' => '',
         'app_id' => "",
         'secret_id' => "",
         'secret_key' => "",
@@ -51,27 +54,10 @@ function _file_upload($object, $file, $opt = array())
     //set_time_limit(120);
 
     //如果文件不存在，直接返回FALSE
-    if (!@file_exists($file))
-        return FALSE;
-
-    //获取WP配置信息
-    $cos_options = get_option('cos_options', TRUE);
-    $cos_bucket = esc_attr($cos_options['bucket']);
-
-    if (@file_exists($file)) {
-        try {
-            //实例化存储对象
-            $qcloud_cos = new Cosapi();
-            $dirname = dirname($object);
-            _create_folder($cos_bucket, $dirname);
-            $data = $qcloud_cos->upload($file, $cos_bucket, $object);
-            return TRUE;
-        } catch (Exception $ex) {
-            return FALSE;
-        }
-    } else {
+    if (!file_exists($file)){
         return FALSE;
     }
+    return CosUtil::upload($file, basename($file));
 }
 
 /**
@@ -299,6 +285,7 @@ function cos_setting_page()
     $options = array();
     if (!empty($_POST)) {
         $options['bucket'] = (isset($_POST['bucket'])) ? trim(stripslashes($_POST['bucket'])) : '';
+        $options['region'] = (isset($_POST['region'])) ? trim(stripslashes($_POST['region'])) : '';
         $options['app_id'] = (isset($_POST['app_id'])) ? trim(stripslashes($_POST['app_id'])) : '';
         $options['secret_id'] = (isset($_POST['secret_id'])) ? trim(stripslashes($_POST['secret_id'])) : '';
         $options['secret_key'] = (isset($_POST['secret_key'])) ? trim(stripslashes($_POST['secret_key'])) : '';
@@ -330,6 +317,7 @@ function cos_setting_page()
     $upload_url_path = get_option('upload_url_path');
 
     $cos_bucket = esc_attr($cos_options['bucket']);
+    $cos_region = esc_attr($cos_options['region']);
     $cos_app_id = esc_attr($cos_options['app_id']);
     $cos_secret_id = esc_attr($cos_options['secret_id']);
     $cos_secret_key = esc_attr($cos_options['secret_key']);
@@ -356,6 +344,17 @@ function cos_setting_page()
 
                         <p>请先访问 <a href="http://console.qcloud.com/cos" target="_blank">腾讯云控制台</a> 创建
                             <code>bucket</code> ，再填写以上内容。</p>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <legend>所属地域 设置</legend>
+                    </th>
+                    <td>
+                        <input type="text" name="region" value="<?php echo $cos_region; ?>" size="50"
+                               placeholder="ap-guangzhou"/>
+
+                        <p>访问域名以以下规则命名：(bucket)-(appid).cos.(region).myqcloud.com</p>
                     </td>
                 </tr>
                 <tr>
