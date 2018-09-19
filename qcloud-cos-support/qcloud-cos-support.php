@@ -7,14 +7,12 @@ Version: 0.1.0
 Author: Jeffery Wang
 Author URI: http://blog.wangjunfeng.com
 License: MIT
- */
+*/
 require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/sdk/CosUtil.php';
 
-if (!defined('WP_PLUGIN_URL')) {
-    define('WP_PLUGIN_URL', WP_CONTENT_URL . '/plugins');
-}
-//  plugin url
+if (!defined('WP_PLUGIN_URL'))
+    define('WP_PLUGIN_URL', WP_CONTENT_URL . '/plugins');//  plugin url
 
 define('COS_BASENAME', plugin_basename(__FILE__));
 define('COS_BASEFOLDER', plugin_basename(dirname(__FILE__)));
@@ -26,13 +24,13 @@ register_activation_hook(__FILE__, 'cos_set_options');
 function cos_set_options()
 {
     $options = array(
-        'bucket'          => "",
-        'region'          => '',
-        'app_id'          => "",
-        'secret_id'       => "",
-        'secret_key'      => "",
-        'nothumb'         => "false", // 是否上传所旅途
-        'nolocalsaving'   => "false", // 是否保留本地备份
+        'bucket' => "",
+        'region' => '',
+        'app_id' => "",
+        'secret_id' => "",
+        'secret_key' => "",
+        'nothumb' => "false", // 是否上传所旅途
+        'nolocalsaving' => "false", // 是否保留本地备份
         'upload_url_path' => "", // URL前缀
     );
     add_option('cos_options', $options, '', 'yes');
@@ -69,9 +67,10 @@ function _file_upload($object, $file)
  */
 function _is_delete_local_file()
 {
-    $cos_options = get_option('cos_options', true);
+    $cos_options = get_option('cos_options', TRUE);
     return (esc_attr($cos_options['nolocalsaving']) == 'true');
 }
+
 
 /**
  * 删除本地文件
@@ -82,20 +81,17 @@ function _delete_local_file($file)
 {
     try {
         //文件不存在
-        if (!@file_exists($file)) {
-            return true;
-        }
-
+        if (!@file_exists($file))
+            return TRUE;
         //删除文件
-        if (!@unlink($file)) {
-            return false;
-        }
-
-        return true;
+        if (!@unlink($file))
+            return FALSE;
+        return TRUE;
     } catch (Exception $ex) {
-        return false;
+        return FALSE;
     }
 }
+
 
 /**
  * 上传附件（包括图片的原图）
@@ -114,7 +110,7 @@ function upload_attachments($metadata)
     $object = str_replace(get_home_path(), '', $object);
 
     //在本地的存储路径
-    $file = get_home_path() . $object; //向上兼容，较早的WordPress版本上$metadata['file']存放的是相对路径
+    $file = get_home_path() . $object;    //向上兼容，较早的WordPress版本上$metadata['file']存放的是相对路径
 
     //执行上传操作
     _file_upload('/' . $object, $file);
@@ -127,9 +123,9 @@ function upload_attachments($metadata)
 }
 
 //避免上传插件/主题时出现同步到COS的情况
-if (substr_count($_SERVER['REQUEST_URI'], '/update.php') <= 0) {
+if (substr_count($_SERVER['REQUEST_URI'], '/update.php') <= 0)
     add_filter('wp_handle_upload', 'upload_attachments', 50);
-}
+
 
 /**
  * 上传图片的缩略图
@@ -139,7 +135,7 @@ function upload_thumbs($metadata)
     //上传所有缩略图
     if (isset($metadata['sizes']) && count($metadata['sizes']) > 0) {
         //获取COS插件的配置信息
-        $cos_options = get_option('cos_options', true);
+        $cos_options = get_option('cos_options', TRUE);
         //是否需要上传缩略图
         $nothumb = (esc_attr($cos_options['nothumb']) == 'true');
         //是否需要删除本地文件
@@ -152,8 +148,8 @@ function upload_thumbs($metadata)
 
         //获取上传路径
         $wp_uploads = wp_upload_dir();
-        $basedir    = $wp_uploads['basedir'];
-        $file_dir   = $metadata['file'];
+        $basedir = $wp_uploads['basedir'];
+        $file_dir = $metadata['file'];
         //得到本地文件夹和远端文件夹
         $file_path = $basedir . '/' . dirname($file_dir) . '/';
         if (get_option('upload_path') == '.') {
@@ -175,22 +171,21 @@ function upload_thumbs($metadata)
             $opt = array('Content-Type' => $val['mime-type']);
 
             //执行上传操作
-            _file_upload($object, $file);
+            $res = _file_upload($object, $file);
+            file_put_contents(__DIR__ .'/log.log','_file_upload(\'/\' . $object, $file):' . json_encode((array)$res,JSON_UNESCAPED_UNICODE) . "\n",FILE_APPEND);
 
             //如果不在本地保存，则删除
-            if ($is_delete_local_file) {
+            if ($is_delete_local_file)
                 _delete_local_file($file);
-            }
-
         }
     }
     return $metadata;
 }
 
 //避免上传插件/主题时出现同步到COS的情况
-if (substr_count($_SERVER['REQUEST_URI'], '/update.php') <= 0) {
+if (substr_count($_SERVER['REQUEST_URI'], '/update.php') <= 0)
     add_filter('wp_generate_attachment_metadata', 'upload_thumbs', 100);
-}
+
 
 /**
  * 删除远程服务器上的单个文件
@@ -210,17 +205,19 @@ function delete_remote_file($file)
 
 add_action('wp_delete_file', 'delete_remote_file', 100);
 
+
 // 当upload_path为根目录时，需要移除URL中出现的“绝对路径”
 function modefiy_img_url($url, $post_id)
 {
     $home_path = str_replace(array('/', '\\'), array('', ''), get_home_path());
-    $url       = str_replace($home_path, '', $url);
+    $url = str_replace($home_path, '', $url);
     return $url;
 }
 
 if (get_option('upload_path') == '.') {
     add_filter('wp_get_attachment_url', 'modefiy_img_url', 30, 2);
 }
+
 
 // 在插件列表页添加设置按钮
 function cos_plugin_action_links($links, $file)
@@ -233,6 +230,7 @@ function cos_plugin_action_links($links, $file)
 
 add_filter('plugin_action_links', 'cos_plugin_action_links', 10, 2);
 
+
 // 在导航栏“设置”中添加条目
 function cos_add_setting_page()
 {
@@ -240,6 +238,7 @@ function cos_add_setting_page()
 }
 
 add_action('admin_menu', 'cos_add_setting_page');
+
 
 // 插件设置页面
 function cos_setting_page()
@@ -249,12 +248,12 @@ function cos_setting_page()
     }
     $options = array();
     if (!empty($_POST)) {
-        $options['bucket']        = (isset($_POST['bucket'])) ? trim(stripslashes($_POST['bucket'])) : '';
-        $options['region']        = (isset($_POST['region'])) ? trim(stripslashes($_POST['region'])) : '';
-        $options['app_id']        = (isset($_POST['app_id'])) ? trim(stripslashes($_POST['app_id'])) : '';
-        $options['secret_id']     = (isset($_POST['secret_id'])) ? trim(stripslashes($_POST['secret_id'])) : '';
-        $options['secret_key']    = (isset($_POST['secret_key'])) ? trim(stripslashes($_POST['secret_key'])) : '';
-        $options['nothumb']       = (isset($_POST['nothumb'])) ? 'true' : 'false';
+        $options['bucket'] = (isset($_POST['bucket'])) ? trim(stripslashes($_POST['bucket'])) : '';
+        $options['region'] = (isset($_POST['region'])) ? trim(stripslashes($_POST['region'])) : '';
+        $options['app_id'] = (isset($_POST['app_id'])) ? trim(stripslashes($_POST['app_id'])) : '';
+        $options['secret_id'] = (isset($_POST['secret_id'])) ? trim(stripslashes($_POST['secret_id'])) : '';
+        $options['secret_key'] = (isset($_POST['secret_key'])) ? trim(stripslashes($_POST['secret_key'])) : '';
+        $options['nothumb'] = (isset($_POST['nothumb'])) ? 'true' : 'false';
         $options['nolocalsaving'] = (isset($_POST['nolocalsaving'])) ? 'true' : 'false';
         //仅用于插件卸载时比较使用
         $options['upload_url_path'] = (isset($_POST['upload_url_path'])) ? trim(stripslashes($_POST['upload_url_path'])) : '';
@@ -275,16 +274,16 @@ function cos_setting_page()
         ?>
         <div class="updated"><p><strong>设置已保存！</strong></p></div>
     <?php
-}
+    }
 
-    $cos_options     = get_option('cos_options', true);
-    $upload_path     = get_option('upload_path');
+    $cos_options = get_option('cos_options', TRUE);
+    $upload_path = get_option('upload_path');
     $upload_url_path = get_option('upload_url_path');
 
-    $cos_bucket     = esc_attr($cos_options['bucket']);
-    $cos_region     = esc_attr($cos_options['region']);
-    $cos_app_id     = esc_attr($cos_options['app_id']);
-    $cos_secret_id  = esc_attr($cos_options['secret_id']);
+    $cos_bucket = esc_attr($cos_options['bucket']);
+    $cos_region = esc_attr($cos_options['region']);
+    $cos_app_id = esc_attr($cos_options['app_id']);
+    $cos_secret_id = esc_attr($cos_options['secret_id']);
     $cos_secret_key = esc_attr($cos_options['secret_key']);
 
     $cos_nothumb = esc_attr($cos_options['nothumb']);
@@ -355,10 +354,7 @@ function cos_setting_page()
                         <legend>不上传缩略图</legend>
                     </th>
                     <td>
-                        <input type="checkbox" name="nothumb" <?php if ($cos_nothumb) {
-        echo 'checked="TRUE"';
-    }
-    ?> />
+                        <input type="checkbox" name="nothumb" <?php if ($cos_nothumb) echo 'checked="TRUE"'; ?> />
 
                         <p>建议不勾选</p>
                     </td>
@@ -369,10 +365,7 @@ function cos_setting_page()
                     </th>
                     <td>
                         <input type="checkbox"
-                               name="nolocalsaving" <?php if ($cos_nolocalsaving) {
-        echo 'checked="TRUE"';
-    }
-    ?> />
+                               name="nolocalsaving" <?php if ($cos_nolocalsaving) echo 'checked="TRUE"'; ?> />
 
                         <p>建议不勾选</p>
                     </td>
