@@ -4,12 +4,16 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit0f9c6cb4612b338f495654578712641c
+class ComposerStaticInit596ff8894a122602e2487f8c59464394
 {
     public static $prefixLengthsPsr4 = array (
         'S' => 
         array (
             'Symfony\\Component\\EventDispatcher\\' => 34,
+        ),
+        'Q' => 
+        array (
+            'Qcloud_cos\\' => 11,
         ),
     );
 
@@ -17,6 +21,10 @@ class ComposerStaticInit0f9c6cb4612b338f495654578712641c
         'Symfony\\Component\\EventDispatcher\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/event-dispatcher',
+        ),
+        'Qcloud_cos\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/Qcloud_cos',
         ),
     );
 
@@ -44,9 +52,9 @@ class ComposerStaticInit0f9c6cb4612b338f495654578712641c
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit0f9c6cb4612b338f495654578712641c::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit0f9c6cb4612b338f495654578712641c::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit0f9c6cb4612b338f495654578712641c::$prefixesPsr0;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit596ff8894a122602e2487f8c59464394::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit596ff8894a122602e2487f8c59464394::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit596ff8894a122602e2487f8c59464394::$prefixesPsr0;
 
         }, null, ClassLoader::class);
     }

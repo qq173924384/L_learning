@@ -19,19 +19,23 @@ class CosUtil
     public static function upload($file, $name)
     {
         $cos_options = get_option('cos_options', true);
-        return CosUtil::getClient()->Upload(esc_attr($cos_options['bucket']), self::getPathByUrl() . $name, fopen($file, 'rb'));
+
+        $client = CosUtil::getClient();
+        return $client->Upload(esc_attr($cos_options['bucket']), $name, fopen($file, 'rb'));
     }
-    public function FunctionName($value = '')
+    public function delete($name)
     {
         $cos_options = get_option('cos_options', true);
-        return CosUtil::getClient()->deleteObject([
+
+        $client = CosUtil::getClient();
+        return $client->deleteObject([
             'Bucket' => esc_attr($cos_options['bucket']) . '-' . esc_attr($cos_options['app_id']),
-            'Key'    => 'hello.txt',
+            'Key'    => $name,
         ]);
     }
     public static function getObjectUrl($name)
     {
-        return self::getUrl(self::getPathByUrl() . $name);
+        return self::getUrl($name);
     }
     public static function getDownloadUrl($url)
     {
@@ -46,9 +50,5 @@ class CosUtil
         $url    = explode('?', $url);
         $url[0] = urldecode($url[0]);
         return implode('?', $url);
-    }
-    public static function getPathByUrl()
-    {
-        return parse_url(get_option('upload_url_path'))['path'] ?: '/';
     }
 }
