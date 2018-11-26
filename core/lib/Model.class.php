@@ -342,16 +342,7 @@ class Model
         } else {
             $sql = '';
             foreach ($wheres as $key => $value) {
-                if (is_array($value) && !is_string($key)) {
-                    $sql_item = '';
-                    foreach ($value as $k => $v) {
-                        $sql_item .= $this->getWhereItem($k, $v);
-                    }
-                    $pre = substr($sql_item, 0, strpos($sql_item, ' ') + 1);
-                    $sql .= $pre . '( ' . ltrim($sql_item, $pre) . ')';
-                } else {
-                    $sql .= $this->getWhereItem($key, $value);
-                }
+                $sql .= $this->getWhereItem($key, $value);
             }
             return ltrim($sql, 'AND');
         }
@@ -367,6 +358,9 @@ class Model
         if ($orders) {
             $sql = ' ORDER BY ';
             foreach ($orders as $order) {
+                if (is_string($key)) {
+                    $order = $key . ' ' . $order;
+                }
                 if (is_array($order)) {
                     $sql .= $order[0] . ',';
                 } else {
@@ -446,6 +440,14 @@ class Model
      */
     private function getWhereItem($key, $val)
     {
+        if (is_array($val) && !is_string($key)) {
+            $sql_item = '';
+            foreach ($val as $k => $v) {
+                $sql_item .= $this->getWhereItem($k, $v);
+            }
+            $pre = substr($sql_item, 0, strpos($sql_item, ' ') + 1);
+            return $pre . '( ' . ltrim($sql_item, $pre) . ')';
+        }
         if (is_array($val)) {
             if (sizeof($val) == 1) {
                 $val[3] = 1;
