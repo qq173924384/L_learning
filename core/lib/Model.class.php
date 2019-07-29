@@ -23,10 +23,10 @@ class Model
      */
     protected $table_name = '';
     /**
-     * 模型类目录地址
-     * @var boolean
+     * sql
+     * @var string
      */
-    public static $sql, $lib = false;
+    protected $sql = false;
 
     /**
      * 初始化
@@ -102,7 +102,7 @@ class Model
      */
     public function getLastSql()
     {
-        return self::$sql;
+        return $this->sql;
     }
     /**
      * 查询
@@ -111,9 +111,9 @@ class Model
      */
     public function select($where = '')
     {
-        self::$sql = $this->where($where)->getSelectSql();
+        $this->sql = $this->where($where)->getSelectSql();
         $this->resetQuery();
-        return Connect::query(self::$sql);
+        return Connect::query($this->sql);
     }
 
     /**
@@ -123,9 +123,9 @@ class Model
      */
     public function selectOne($where = '')
     {
-        self::$sql = $this->where($where)->limit(1)->getSelectSql();
+        $this->sql = $this->where($where)->limit(1)->getSelectSql();
         $this->resetQuery();
-        return Connect::query(self::$sql, 0);
+        return Connect::query($this->sql, 0);
     }
 
     /**
@@ -135,9 +135,9 @@ class Model
      */
     public function insert($data)
     {
-        self::$sql = $this->getInsertSql($data);
+        $this->sql = $this->getInsertSql($data);
         $this->resetQuery();
-        return Connect::exec(self::$sql) ? Connect::lastInsertId() : false;
+        return Connect::exec($this->sql) ? Connect::lastInsertId() : false;
     }
 
     /**
@@ -148,9 +148,9 @@ class Model
      */
     public function update($data, $where = '')
     {
-        self::$sql = $this->where($where)->getUpdateSql($data);
+        $this->sql = $this->where($where)->getUpdateSql($data);
         $this->resetQuery();
-        return Connect::exec(self::$sql);
+        return Connect::exec($this->sql);
     }
 
     /**
@@ -160,9 +160,9 @@ class Model
      */
     public function delete($where = '')
     {
-        self::$sql = $this->where($where)->getDeleteSql();
+        $this->sql = $this->where($where)->getDeleteSql();
         $this->resetQuery();
-        return Connect::exec(self::$sql);
+        return Connect::exec($this->sql);
     }
 
     /**
@@ -457,8 +457,8 @@ class Model
             }
             $option   = self::whereOp($val[0]);
             $value    = $val[1];
-            $rule     = isset($val[2]) ? $val[2] : 'AND';
-            $is_field = isset($val[3]) ? $val[3] : 0;
+            $rule     = $val[2] ?? 'AND';
+            $is_field = $val[3] ?? 0;
             switch ($option) {
                 case 'EXP':
                     return $value . ' ';
@@ -502,7 +502,8 @@ class Model
                 }
             case 2:
                 // 表别名
-                $sql                 = ' AS `' . $table[1] . '`';
+                $sql = ' AS `' . $table[1] . '`';
+
                 $this->table_alias[] = $table[1];
             case 1:
                 $sql = $this->getTableName($table[0]) . $sql;
