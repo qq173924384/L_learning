@@ -139,6 +139,18 @@ class Model
         $this->resetQuery();
         return Connect::exec(self::$sql) ? Connect::lastInsertId() : false;
     }
+    public function insertValues($columns, $values)
+    {
+        $this->sql = $this->getInsertValuesSql($columns, $values);
+        $this->resetQuery();
+        return Connect::exec($this->sql);
+    }
+    public function insertSelect($field, $table, $where, $order = [], $limit = [])
+    {
+        $this->sql = $this->getInsertSelectSql($field, $table, $where, $order, $limit);
+        $this->resetQuery();
+        return Connect::exec($this->sql);
+    }
 
     /**
      * 更新
@@ -215,6 +227,48 @@ class Model
         $column = rtrim($column, ',');
         $values = rtrim($values, ',');
         return "INSERT INTO $table ($column) VALUES($values);";
+    }
+
+    /**
+     * 获取批量插入sql语句
+     * @param  [type] $columns 字段名数组
+     * @param  [type] $values  批量值二维数组
+     * @return [type]          [description]
+     */
+    public function getInsertValuesSql($columns, $values)
+    {
+        $table       = $this->getTableName($this->table_name);
+        $columns_str = [];
+        $values_str  = [];
+        foreach ($columns as $value) {
+            $columns_str[] = '`' . $value . '`';
+        }
+        foreach ($values as $value) {
+            $value_str = '';
+            foreach ($value as $v) {
+                $value_str .= self::escape($v) . ',';
+            }
+            $values_str[] = rtrim($value_str, ',');
+        }
+        $columns_str = implode(',', $columns_str);
+        $values_str  = implode('),(', $values_str);
+        return "INSERT INTO $table ($columns_str) VALUES($values_str);";
+    }
+    /**
+     * 获取select插入sql语句
+     * @param  [type] $field select字段数组
+     * @param  [type] $table select表名
+     * @param  [type] $where select条件数组
+     * @param  array  $order select排序数组
+     * @param  array  $limit select限制数组
+     * @return [type]        [description]
+     */
+    public function getInsertSelectSql($field, $table, $where, $order = [], $limit = [])
+    {
+        $table_sql   = $this->getTableName($this->table_name);
+        $sql_builder = new self($table);
+        $select_sql  = rtrim($sql_builder->field($field)->order($order)->limit($limit)->where($where)->getSelectSql(), ';');
+        return "INSERT INTO {$table_sql} {$select_sql};";
     }
 
     /**
