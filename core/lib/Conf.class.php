@@ -36,7 +36,7 @@ class Conf
         if (file_exists($file)) {
             switch ($type) {
                 case 'json':
-                    return file_put_contents($file, json_encode($data));
+                    return file_put_contents($file, json_encode($data, JSON_UNESCAPED_UNICODE));
                     break;
                 case 'php':
                     return file_put_contents($file, '<?php return ' . var_export($data, 1) . ';');

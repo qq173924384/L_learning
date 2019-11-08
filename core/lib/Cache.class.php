@@ -16,6 +16,6 @@ class Cache
     public static function put($key, $data)
     {
         $file = CACHE_PATH . $key . '.cache';
-        return file_put_contents($file, json_encode($data));
+        return file_put_contents($file, json_encode($data, JSON_UNESCAPED_UNICODE));
     }
 }
